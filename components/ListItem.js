@@ -8,8 +8,8 @@ import {
 import Actions from '../services/graphql';
 
 export default class ListItem extends Component{
-    constructor(){
-        super()
+    constructor(props){
+        super(props)
         this.state ={
             data: {
                 Sumber: "",
@@ -17,11 +17,14 @@ export default class ListItem extends Component{
                 Beban: 0
             },
             buttonLabel: "Mati",
-            waitRespons: false
+            waitRespons: false,
+            proped: false
         }
+        
     }
-    toggle(k){
-        (k)
+
+    componentDidMount(props){
+        this.setState({data: this.props.datas});
     }
 
     async penerima(){
@@ -32,7 +35,6 @@ export default class ListItem extends Component{
             ).then(
                 this.setState({data: res.data.data,waitRespons: false})
             )
-        
     }
 
     async pemancar(){
@@ -44,16 +46,20 @@ export default class ListItem extends Component{
             data = Actions(
                 "matikanListrik",
                 {sumber: this.state.data.Sumber}
-                ).then(this.setState({waitRespons: false}))
+                ).then(this.Wait())
             stat = data.data.matikanListrik
         }else{
             data = Actions(
                 "hidupkanListrik",
                 {sumber: this.state.data.Sumber}
-                ).then(this.setState({waitRespons: true}))
+                ).then(this.Wait())
 
             stat = data.data.hidupkanListrik
         }
+    }
+    Wait(){
+        this.setState({waitRespons: !this.state.waitRespons})
+        this.setState({buttonLabel: this.state.waitRespons ? "Tunggu" : "Siap"})
     }
 
     tombol(){
@@ -63,21 +69,22 @@ export default class ListItem extends Component{
             this.setState({data: datas})
             // execute pemancar
             //
+            this.Wait()
             if(this.state.data.Status){
                 this.setState({buttonLabel: "Hidup"})
             }else{
                 this.setState({buttonLabel: "Mati"})
             }
+        }else{
+            this.Wait()
         }
     }
+
 
     render(){
         return(
             <View>
-                {
-                    this.toggle(this.props.id)
-                }
-                <Text>{this.state.Sumber} | {this.state.data.Status}</Text>
+                <Text>{JSON.stringify(this.state.data.Status)}</Text>
                 <Button title={String(this.state.buttonLabel)} onPress={this.tombol.bind(this)}></Button>
             </View>
         );

@@ -6,7 +6,7 @@ import ax from 'axios'
     hidupkanListrik(sumber: String!): Boolean!
 */
 
-let url = "http://localhost:8082/mobile";
+let url = "http://localhost:8021/mobile";
 
 let queryBase = {
     "hidupkanListrik":`
@@ -21,18 +21,18 @@ query($sumber: String!){
     "daftarListrik":`
 query{
     semuaListrik{
-        sumber
-        status
-        beban
+        Sumber
+        Status
+        Beban
     }
 }
     `,
     "listrik":`
 query($sumber: String!){
     listrik(sumber: $sumber){
-        sumber
-        status
-        beban
+        Sumber
+        Status
+        Beban
     }
 }
     `
@@ -54,7 +54,7 @@ export async function post(params){
  
  }
  
- export async function Actions(act,variable){
+ export default async function Actions(act,variable){
      return await post(
          {
              query: queryBase[act],
