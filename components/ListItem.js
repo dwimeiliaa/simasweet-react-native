@@ -36,10 +36,10 @@ export default class ListItem extends Component{
                     if (e.errors == null){
                         this.setState({data: e.data.listrik})
                         this.Wait()
-                        alert(JSON.stringify(this.state))
+                        //alert(JSON.stringify(this.state))
                         
                     }else{
-                        alert(JSON.stringify(e))
+                      //  alert(JSON.stringify(e))
                     }
                 }
             )
@@ -47,8 +47,9 @@ export default class ListItem extends Component{
 
     async pemancar(){
         this.setState({waitRespons: true})
-        alert(JSON.stringify(this.state.data.Status))
-        if (this.state.data.Status){
+        //alert(JSON.stringify(this.state.data.Status))
+        if (!this.state.data.Status){
+            alert(JSON.stringify(this.state.data))
             await Actions(
                 "matikanListrik",
                 {sumber: this.state.data.Sumber}
@@ -60,6 +61,7 @@ export default class ListItem extends Component{
                     }
                 })
         }else{
+            alert(JSON.stringify(this.state.data))
            await Actions(
                 "hidupkanListrik",
                 {sumber: this.state.data.Sumber}
@@ -95,8 +97,6 @@ export default class ListItem extends Component{
             alert("Sedang Proses")
         }
     }
-
-
     render(){
         return(
             <View>
