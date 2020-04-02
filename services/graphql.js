@@ -10,11 +10,11 @@ let url = "http://localhost:8021/mobile";
 
 let queryBase = {
     "hidupkanListrik":`
-query($sumber: String!){
+mutation($sumber: String!){
     hidupkanListrik(sumber: $sumber)
 }`,
     "matikanListrik":`
-query($sumber: String!){
+mutation($sumber: String!){
    matikanListrik(sumber: $sumber)
 }    
     `,

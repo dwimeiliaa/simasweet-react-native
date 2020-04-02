@@ -20,7 +20,7 @@ export default class ListItem extends Component{
             waitRespons: false,
             proped: false
         }
-        
+        alert(JSON.stringify(this.state))
     }
 
     componentDidMount(props){
@@ -29,32 +29,47 @@ export default class ListItem extends Component{
 
     async penerima(){
         this.setState({waitRespons: true})
-        res = Actions(
-            "matikanListrik",
+        await Actions(
+            "listrik",
             {sumber: this.state.data.Sumber}
-            ).then(
-                this.setState({data: res.data.data,waitRespons: false})
+            ).then((e) =>{
+                    if (e.errors == null){
+                        this.setState({data: e.data.listrik})
+                        this.Wait()
+                        alert(JSON.stringify(this.state))
+                        
+                    }else{
+                        alert(JSON.stringify(e))
+                    }
+                }
             )
     }
 
     async pemancar(){
         this.setState({waitRespons: true})
-        let query = {}
-        let data = {}
-        let stat = false
-        if (this.states.data.Status){
-            data = Actions(
+        alert(JSON.stringify(this.state.data.Status))
+        if (this.state.data.Status){
+            await Actions(
                 "matikanListrik",
                 {sumber: this.state.data.Sumber}
-                ).then(this.Wait())
-            stat = data.data.matikanListrik
+                ).then((e) =>{
+                    if(e.errors == null){
+                        this.penerima()   
+                    }else{
+                        alert(JSON.stringify(e))
+                    }
+                })
         }else{
-            data = Actions(
+           await Actions(
                 "hidupkanListrik",
                 {sumber: this.state.data.Sumber}
-                ).then(this.Wait())
-
-            stat = data.data.hidupkanListrik
+                ).then((e) =>{
+                    if(e.errors == null){
+                        this.penerima()
+                    }else{
+                        alert(JSON.stringify(e))
+                    }
+                })
         }
     }
     Wait(){
@@ -62,21 +77,22 @@ export default class ListItem extends Component{
         this.setState({buttonLabel: this.state.waitRespons ? "Tunggu" : "Siap"})
     }
 
-    tombol(){
+   async tombol(){
         if (!this.state.waitRespons){
             let datas = this.state.data
             datas.Status = !this.state.data.Status
             this.setState({data: datas})
             // execute pemancar
-            //
+            
             this.Wait()
+            await this.pemancar()
             if(this.state.data.Status){
                 this.setState({buttonLabel: "Hidup"})
             }else{
                 this.setState({buttonLabel: "Mati"})
             }
         }else{
-            this.Wait()
+            alert("Sedang Proses")
         }
     }
 
@@ -84,7 +100,7 @@ export default class ListItem extends Component{
     render(){
         return(
             <View>
-                <Text>{JSON.stringify(this.state.data.Status)}</Text>
+                <Text>{JSON.stringify(this.state.data)}</Text>
                 <Button title={String(this.state.buttonLabel)} onPress={this.tombol.bind(this)}></Button>
             </View>
         );

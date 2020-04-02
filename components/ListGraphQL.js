@@ -10,10 +10,7 @@ import ListItem from './ListItem'
 export class List extends Component{
     constructor(){
         super()
-        this.state = {data: [
-            {Sumber: 1, Status: false, Beban: 120},
-            {Sumber: 0, Status: true, Beban: 121}
-        ]}
+        this.state = {data: []}
     }
     t(){
      
