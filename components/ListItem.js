@@ -61,7 +61,7 @@ export default class ListItem extends Component{
                     }
                 })
         }else{
-            alert(JSON.stringify(this.state.data))
+            //alert(JSON.stringify(this.state.data))
            await Actions(
                 "hidupkanListrik",
                 {sumber: this.state.data.Sumber}
