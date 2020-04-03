@@ -2,8 +2,13 @@ import React,{Component} from 'react';
 import {
     Text,
     View,
-    Button
+    StyleSheet
 } from 'react-native';
+
+import {
+    Button,
+    Badge
+} from 'react-native-elements';
 
 import Actions from '../services/graphql';
 
@@ -25,6 +30,8 @@ export default class ListItem extends Component{
 
     componentDidMount(props){
         this.setState({data: this.props.datas});
+        this.setState({
+            buttonLabel: !this.state.data.Status ? "Hidupkan": "Matikan" })
     }
 
     async penerima(){
@@ -49,12 +56,14 @@ export default class ListItem extends Component{
         this.setState({waitRespons: true})
         //alert(JSON.stringify(this.state.data.Status))
         if (!this.state.data.Status){
-            alert(JSON.stringify(this.state.data))
             await Actions(
                 "matikanListrik",
                 {sumber: this.state.data.Sumber}
                 ).then((e) =>{
-                    if(e.errors == null){
+                    if(e === undefined){
+                        alert("Gagal meminta ke server")
+                        this.Wait()
+                    }else if(e.errors == null){
                         this.penerima()   
                     }else{
                         alert(JSON.stringify(e))
@@ -66,7 +75,10 @@ export default class ListItem extends Component{
                 "hidupkanListrik",
                 {sumber: this.state.data.Sumber}
                 ).then((e) =>{
-                    if(e.errors == null){
+                    if(e === undefined){
+                        alert("Gagal meminta ke server")
+                        this.Wait()
+                    }else if(e.errors == null){
                         this.penerima()
                     }else{
                         alert(JSON.stringify(e))
@@ -97,11 +109,52 @@ export default class ListItem extends Component{
             alert("Sedang Proses")
         }
     }
+    hidup(states){
+        if(states){
+            return(
+                <Badge value="Status: Hidup" style={this.styles.padText}  status="success"/>
+            )
+        }else{
+            return(
+                <Badge value="Status: Mati" style={this.styles.padText} status="error"/>
+            )
+        }
+    }
+    styles = StyleSheet.create({
+        container: {
+          height: '50%',
+        },
+        padText:{
+            margin: 10
+        },
+        card:{
+            borderWidth: 2,
+            padding: 6,
+            borderColor: '#e0e0e0',
+            borderRadius: 8,
+            width: '84%'
+        },
+        badgeHandler: {
+            flexDirection: 'row' ,
+            justifyContent: 'center',
+            alignItems: 'center',
+            justifyContent: 'space-around',
+            paddingBottom: 10,
+            paddingTop: 12
+        },
+        text: { textAlign: 'center' },
+      });
     render(){
         return(
-            <View>
-                <Text>{JSON.stringify(this.state.data)}</Text>
-                <Button title={String(this.state.buttonLabel)} onPress={this.tombol.bind(this)}></Button>
+            <View style={this.styles.card}>
+                <View style={this.styles.badgeHandler}>
+                    <Badge value={"Asal:  "+ this.state.data.Sumber+"  "} style={this.styles.padText} status="success" />
+                    {
+                        this.hidup(this.state.data.Status)
+                    }
+                    <Badge value={"Beban: " + this.state.data.Beban + " KWh"} style={this.styles.padText} status="primary" />
+                </View>
+                <Button style={{borderRadius: 80}} title={String(this.state.buttonLabel)} onPress={this.tombol.bind(this)}></Button>
             </View>
         );
     }

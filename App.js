@@ -18,7 +18,7 @@ import {
 
 const App: () => React$Node = () => {
   return (
-    <View>
+    <View style={{backgroundColor: "#fff"}}>
       <List/>
     </View>
   );

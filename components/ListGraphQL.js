@@ -2,7 +2,8 @@ import React,{Component} from 'react';
 import {
     Text,
     View,
-    Button
+    Button,
+    StyleSheet
 } from 'react-native';
 import Actions from '../services/graphql'
 import ListItem from './ListItem'
@@ -38,11 +39,18 @@ export class List extends Component{
             
        // this.setState({data: datas})
     }
+    styles = StyleSheet.create({
+
+    })
 
     render(){
         
         return (
-            <View>
+            <View style={{
+                justifyContent: 'center',
+                alignItems: 'center',
+                padding: 10
+            }}>
                 {
                     this.state.data.map((item,indek) => (
                         <ListItem
