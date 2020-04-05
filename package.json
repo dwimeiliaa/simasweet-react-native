@@ -1,5 +1,5 @@
 {
-  "name": "simasweetrn",
+  "name": "simasweetsrn",
   "version": "0.0.1",
   "private": true,
   "scripts": {
@@ -11,9 +11,8 @@
   },
   "dependencies": {
     "axios": "^0.19.2",
-    "minimist": "^1.2.2",
     "react": "16.11.0",
-    "react-native": "0.62.0",
+    "react-native": "0.62.1",
     "react-native-elements": "^1.2.7",
     "react-native-vector-icons": "^6.6.0"
   },

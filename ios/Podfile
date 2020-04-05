@@ -21,8 +21,8 @@ def flipper_post_install(installer)
   end
 end
 
-target 'simasweetrn' do
-  # Pods for simasweetrn
+target 'simasweetsrn' do
+  # Pods for simasweetsrn
   pod 'FBLazyVector', :path => "../node_modules/react-native/Libraries/FBLazyVector"
   pod 'FBReactNativeSpec', :path => "../node_modules/react-native/Libraries/FBReactNativeSpec"
   pod 'RCTRequired', :path => "../node_modules/react-native/Libraries/RCTRequired"
@@ -54,7 +54,7 @@ target 'simasweetrn' do
   pod 'glog', :podspec => '../node_modules/react-native/third-party-podspecs/glog.podspec'
   pod 'Folly', :podspec => '../node_modules/react-native/third-party-podspecs/Folly.podspec'
 
-  target 'simasweetrnTests' do
+  target 'simasweetsrnTests' do
     inherit! :complete
     # Pods for testing
   end
@@ -71,10 +71,10 @@ target 'simasweetrn' do
   end
 end
 
-target 'simasweetrn-tvOS' do
-  # Pods for simasweetrn-tvOS
+target 'simasweetsrn-tvOS' do
+  # Pods for simasweetsrn-tvOS
 
-  target 'simasweetrn-tvOSTests' do
+  target 'simasweetsrn-tvOSTests' do
     inherit! :search_paths
     # Pods for testing
   end

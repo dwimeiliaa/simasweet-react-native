@@ -17,8 +17,13 @@ export class List extends Component{
      
     }
     componentDidMount(){
-        this.getListrik();
+
+        setInterval(() =>{
+            this.getListrik()
+        },5000)
     }
+
+    
 
     async getListrik(){
         this.datas = []
@@ -27,12 +32,12 @@ export class List extends Component{
                 // datas = datas.data.semuaListrik,
                 // alert(datas)
                     if (e.errors != null){
-                        alert(JSON.stringify(e))
+                        //alert(JSON.stringify(e))
                     }else{
-                        alert(JSON.stringify(e.data.semuaListrik))
+                        //alert(JSON.stringify(e.data.semuaListrik))
                         this.datas = e.data.semuaListrik
                         this.setState({data: this.datas})
-                        alert("State: " + JSON.stringify(this.state.data))
+                       // alert("State: " + JSON.stringify(this.state.data))
                     }
                 }
             )
@@ -54,7 +59,7 @@ export class List extends Component{
                 {
                     this.state.data.map((item,indek) => (
                         <ListItem
-                            id={indek} 
+                            key={'_' + Math.random().toString(36).substr(2, 9)} 
                             datas={item}
                         />
                     ))

@@ -6,7 +6,7 @@ import ax from 'axios'
     hidupkanListrik(sumber: String!): Boolean!
 */
 
-let url = "http://localhost:8021/mobile";
+let url = "https://simasweets.herokuapp.com/";
 
 let queryBase = {
     "hidupkanListrik":`
