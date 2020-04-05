@@ -3,6 +3,7 @@ import {
     Text,
     View,
     Button,
+    ScrollView,
     StyleSheet
 } from 'react-native';
 import Actions from '../services/graphql'
@@ -20,7 +21,7 @@ export class List extends Component{
 
         setInterval(() =>{
             this.getListrik()
-        },5000)
+        },10000)
     }
 
     
@@ -51,11 +52,7 @@ export class List extends Component{
     render(){
         
         return (
-            <View style={{
-                justifyContent: 'center',
-                alignItems: 'center',
-                padding: 10
-            }}>
+            <ScrollView>
                 {
                     this.state.data.map((item,indek) => (
                         <ListItem
@@ -64,7 +61,7 @@ export class List extends Component{
                         />
                     ))
                 }
-            </View>
+            </ScrollView>
         )
     }
 }

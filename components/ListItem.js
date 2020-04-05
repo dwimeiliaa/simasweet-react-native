@@ -32,7 +32,7 @@ export default class ListItem extends Component{
     componentDidMount(props){
         this.setState({data: this.props.datas});
         this.setState({
-            buttonLabel: !this.state.data.Status ? "Hidupkan": "Matikan" })
+            buttonLabel: (!this.state.data.Status ? "Hidupkan": "Matikan") })
     }
 
     kondisinya(k){

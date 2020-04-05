@@ -5,6 +5,10 @@ import {
     Button,
     StyleSheet
 } from 'react-native';
+
+import {
+    Badge
+} from 'react-native-elements';
 import Actions from '../services/graphql'
 
 export class Notif extends Component{
@@ -16,7 +20,7 @@ export class Notif extends Component{
        	 	}
     	}
 
-	componentDidMount(props){
+	componentDidMount(){
         setInterval(()=>{this.getListrik()},5000)
 	   
   	}
@@ -53,7 +57,8 @@ export class Notif extends Component{
           height: '50%',
         },
         padText:{
-            margin: 10
+            padding: 10,
+            color: 'white'
         },
         card:{
             borderWidth: 2,
@@ -81,10 +86,16 @@ export class Notif extends Component{
 	render(){
 		return(
 		<View style={this.styles.card}>
-			<Text style={this.styles.badgeHandler
-			}>{this.state.bebanTotal}</Text>
-			<Text style={this.styles.badgeHandler}>{this.state.bebanBerlebih ?
-				"Beban Belebih ": "Beban Aman"}</Text>
+            <Badge
+             style={this.styles.padText}
+             value={<Text style={{fontSize: 15,color: 'white',padding: 10}}>{"Total Beban: "+ this.state.bebanTotal+" Watt"}</Text>}
+             status="primary" />
+            <Badge 
+                style={this.styles.padText}
+                value={<Text style={{fontSize: 15,color: 'white',padding: 10}}>{this.state.bebanBerlebih ?
+                    "Beban melebih batas Maksimum": "Beban Aman"}</Text>}
+                status={this.state.bebanBerlebih ?
+                    "error": "success"}  />
 		</View>
 		)
 	}
