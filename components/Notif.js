@@ -93,9 +93,9 @@ export class Notif extends Component{
             <Badge 
                 style={this.styles.padText}
                 value={<Text style={{fontSize: 15,color: 'white',padding: 10}}>{this.state.bebanBerlebih ?
-                    "Beban melebih batas Maksimum": "Beban Aman"}</Text>}
+                    "Beban Melebih Batas Maksimum": "Beban Aman"}</Text>}
                 status={this.state.bebanBerlebih ?
-                    "error": "success"}  />
+                    "Error": "Succes"}  />
 		</View>
 		)
 	}
